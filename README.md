@@ -13,3 +13,10 @@ Note that our interface is only concerned with the account balance - it doesn't 
 The next step is to create strategies to deal with each of our calculations.
 Each calculation is now isolated to its own class, making it much easier to understand individual calculations - they're not surrounded by clutter anymore. Next, we'll refactor our calculator. 
 We've moved the calculation logic out of the calculator itself.
+# The code still doesn't look great - it still seems like there are too many things happening in one method. 
+There is an easy way to clean up this mess - the Factory pattern.
+The Factory pattern allows us to create objects without necessarily knowing or caring about the type of objects that we are creating. This is exactly what our calculator needs - we want calculations, but we don't care about the details of those calculations. All we really need is a reference to a strategy that knows how to do the appropriate interest calculation for a particular type of account.
+All of the logic specific to account types is now encapsulated in one class that satisfies the single responsibility principle. The factory isn't concerned with calculations - all it does is to match account types to the appropriate strategies. As a result, we can greatly simplify the code within our calculator class.
+This looks much better than before, but there's still one part of the code -  nasty null check. Let's do one more refactoring - we'll introduce a Null Object (also known as a Special Case) to deal with unexpected account types. This simply means that we'll have a default strategy that will be applied as a last resort. 
+Took from here:
+https://www.linkedin.com/pulse/design-patterns-strategy-factory-riaan-nel/
